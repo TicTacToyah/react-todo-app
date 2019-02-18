@@ -3,34 +3,26 @@ import React, {
 } from 'react'
 import './App.css'
 import Title from './Components/Title'
-import Subtitle from './Components/Subtitle'
-import Input from './Components/Input'
-import Button from './Components/Button'
 import Todos from './Components/Todos'
 import Form from './Components/Form'
 
 class App extends Component {
   state = {
-    newTodo: '',
     todos: [
       {text: 'Walk the Dog', checked: false},
       {text: 'Walk the Cat', checked: false},
       {text: 'Feed Bird', checked: false}
     ]
-
-
   }
 
-  addTodo = e => {
-    e.preventDefault()
-    
-    if(this.state.newTodo) {
+  addTodo = todo => {
+
+    if(todo) {
       this.setState({
         todos: [
           ...this.state.todos,
-          {text: this.state.newTodo, checked: false}
+          {text: todo, checked: false}
         ],
-        newTodo: ''
     })
     }
   }
@@ -42,13 +34,6 @@ class App extends Component {
         ...this.state.todos.slice(index + 1)
       ]
     })
-  }
-
-  onInputChange = e => {
-    this.setState({
-      newTodo: e.target.value
-    })
-    console.log(this.state.newTodo)
   }
   
   onChangeCheck = index => {
@@ -67,7 +52,7 @@ class App extends Component {
       <div>
        <Title type="h1" text={'Fancy React Todo'} />
        <Title type="h2" text={'Iam a Subtitle'} />
-       <Form onSubmit={this.addTodo} newTodo={this.state.newTodo} onInputChange={this.onInputChange}/>
+       <Form addTodo={this.addTodo}/>
         <Todos 
           todos={this.state.todos} 
           onDeleteClick={this.deleteTodo} 
