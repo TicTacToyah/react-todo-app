@@ -1,13 +1,13 @@
-import React, {
-  Component
-} from 'react'
+import React, { Component} from 'react'
 import './App.css'
 import Title from './Components/Title'
 import Todos from './Components/Todos'
 import Form from './Components/Form'
+import GlobalStyle from './Components/GlobalStyle'
+import {saveToStorage, loadFromStorage} from './services'
 
 class App extends Component {
-  state = {
+  state = loadFromStorage('react-todo-app') || {
     todos: [
       {text: 'Walk the Dog', checked: false},
       {text: 'Walk the Cat', checked: false},
@@ -15,8 +15,7 @@ class App extends Component {
     ]
   }
 
-  addTodo = todo => {
-
+  addTodo = todo => { //bei jerry nochmal nachschauen
     if(todo) {
       this.setState({
         todos: [
@@ -48,8 +47,10 @@ class App extends Component {
   }
 
   render() {
+    saveToStorage('react-todo-app', this.state)
     return(
       <div>
+       <GlobalStyle />
        <Title type="h1" text={'Fancy React Todo'} />
        <Title type="h2" text={'Iam a Subtitle'} />
        <Form addTodo={this.addTodo}/>

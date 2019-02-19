@@ -1,20 +1,20 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
+import styled from 'styled-components'
+
+const StyledButton = styled.button`
+background-color: blue;
+height: 50px;
+width: 100px;
+&:hover {
+  background-color: hotpink;
+}
+`
 
 class Button extends Component {
   render() {
-    const styling = {
-      backgroundColor: 'blue',
-      height: '50px',
-      width: '100px'
-    }
-
-    return ( <button style = { styling }> {
- this.props.buttonText
-      } </button>
+    return ( <StyledButton> { this.props.buttonText  } </StyledButton>
     )
   }
 }
 
-export default Button
+export default Button 
